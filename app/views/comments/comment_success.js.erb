@@ -1,0 +1,5 @@
+$('.comments').prepend('<%= j render "comment", comment: @comment %>');
+
+<%# Reset comment to new comment, so that it won't update the persisted record. %>
+<% @comment = Comment.new %>
+$('#comment-form').html('<%= j render "form" %>');

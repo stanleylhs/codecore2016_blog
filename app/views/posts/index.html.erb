@@ -1,0 +1,47 @@
+| <% if user_signed_in? %>
+<%= link_to 'New Post', new_post_path %>
+<% end %>
+<h1>Listing Posts</h1>
+
+<div id="search_box">
+    <%= form_tag(posts_path, :method => "get", class: "navbar-form", id: "search-form") do %>
+      <div class="input-append">
+        <%= text_field_tag :search, params[:search], class: "span2", placeholder: "Search Request" %>
+        <!-- In order to have the "search" icon int the button, we need to use plain HTML instead 
+             of using a Rails form helper -->
+        <button class="btn" type="submit">Search</button>
+      </div>
+    <% end %>
+</div>
+<p id="notice"><%= notice %></p>
+
+<%= paginate @posts %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.name %></td>
+        <td><%= post.title %></td>
+        <td><%= post.content %></td>
+        <td><%= link_to 'Show', post %></td>
+        <% if can? :manage, @post %>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

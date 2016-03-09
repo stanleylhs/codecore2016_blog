@@ -1,0 +1,13 @@
+<% favourite = @post.favourite_for(current_user) %>
+<%# binding.remote_pry %>
+<% if favourite %>
+  <%= link_to fa_icon("heart"), post_favourite_path(@post, favourite), 
+              method: :delete,
+              remote: true,
+              class: "like-fav-icon" %>
+<% else %>
+  <%= link_to fa_icon("heart-o"), post_favourites_path(@post), 
+              method: :post,
+              remote: true,
+              class: "like-fav-icon" %>
+<% end %>
