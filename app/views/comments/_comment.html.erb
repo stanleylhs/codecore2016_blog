@@ -1,0 +1,20 @@
+<div id="<%= dom_id(comment) %>">
+<p>
+  <b>Comment:</b>
+  <%= comment.body %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= comment.user_full_name %>
+</p>
+
+<p>
+  <% if can? :manage, comment %>
+  <%= link_to 'Destroy Comment', [comment.post, comment],
+               :confirm => 'Are you sure?',
+               remote: true,
+               :method => :delete %>
+  <% end %>
+</p>
+</div>
