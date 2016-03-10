@@ -1,22 +1,4 @@
 Rails.application.routes.draw do
-  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
-  
-  get 'password_resets/new'
-
-  resources :users
-  resources :posts do
-    resources :comments   , only: [:create, :destroy]
-    resources :favourites, only: [:create, :destroy]
-  end
-
-  resources :users, only: [:create, :new]
-  resources :sessions, only: [:new, :create] do
-    # remove :id reference from helper
-    delete :destroy, on: :collection    
-  end
-  resources :password_resets
-
-  root 'posts#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
