@@ -1,5 +1,5 @@
 class CommentMailer < ApplicationMailer
-  def ,(comment)
+  def notify_post_owner(comment)
     @comment = comment
     @post = comment.post
     @owner = @post.user
