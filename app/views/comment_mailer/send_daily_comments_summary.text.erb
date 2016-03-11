@@ -1,0 +1,16 @@
+Hello <%= @owner.full_name %>,
+
+Here's a summary of new comments to your post:
+
+<% @posts.each do |post| %>
+  Post title: <%= post.title %>
+  <% post.comments.each do |comment| %>
+    The comment: <%= comment.body %>
+  <% end %>
+<% end %>
+
+
+
+Regards,
+
+Awesome Blog Team

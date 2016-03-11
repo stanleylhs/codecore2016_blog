@@ -31,6 +31,9 @@ class Post < ActiveRecord::Base
 
   delegate :full_name, to: :user, prefix: true, allow_nil: :true
 
+  # 1 query not N+1
+  scope :with_new_comments, -> { joins(:comments).includes(:comments).where('comments.created_at >= ?', 1.day.ago) }
+
   def favourite_for(user)
     favourites.find_by_user_id user
   end

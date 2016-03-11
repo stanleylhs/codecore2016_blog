@@ -1,0 +1,17 @@
+<p>Hello <%= @owner.full_name %>,</p>
+
+<p>Here's a summary of new comments to your post:</p>
+
+<% @posts.each do |post| %>
+  <p>Post title: <%= post.title %></p>
+  <% post.comments.each do |comment| %>
+    <p>The comment: <%= comment.body %></p>
+  <% end %>
+  <%= link_to "Click Here to View the Post", post_url(post) %>
+<% end %>
+
+
+
+<p>Regards,</p>
+
+<p>Awesome Blog Team</p>
