@@ -5,7 +5,7 @@ class SummarizeDailyCommentsJob < ActiveJob::Base
     # Don't do use .all.each
     # find_in_batches
     User.find_each do |user|
-      CommentMail.send_daily_comments_summary(user)
+      CommentMailer.send_daily_comments_summary(user).deliver_later
     end
   end
 end

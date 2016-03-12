@@ -23,7 +23,8 @@ module Blog
         resource '*', :headers => :any, :methods => [:get, :post, :patch, :delete]
       end
     end
-
+    
+    config.autoload_paths  << Rails.root.join("app", "jobs")
     config.active_job.queue_adapter = :delayed_job
     
     # Settings in config/environments/* take precedence over those specified here.
