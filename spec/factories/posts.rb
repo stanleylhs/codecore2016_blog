@@ -3,7 +3,7 @@ FactoryGirl.define do
     # association :user, factory: :user
     # category
     
-    title   Faker::Company.bs
-    content Faker::Lorem.paragraph
+    title   {Faker::Company.bs}
+    content {Faker::Lorem.paragraph}
   end
 end

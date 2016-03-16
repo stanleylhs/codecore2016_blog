@@ -61,8 +61,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        params[:post_attachments]['image'].each do |img|
-          @post_attachment = @post.post_attachments.create!(image: img)
+        if params[:post_attachments]
+          params[:post_attachments]['image'].each do |img|
+            @post_attachment = @post.post_attachments.create!(image: img)
+          end
         end
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
@@ -78,9 +80,10 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        # Check if it was there
-        params[:post_attachments]['image'].each do |img|
-          @post_attachment = @post.post_attachments.create!(image: img)
+        if params[:post_attachments]
+          params[:post_attachments]['image'].each do |img|
+            @post_attachment = @post.post_attachments.create!(image: img)
+          end
         end
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
