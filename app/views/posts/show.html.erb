@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @post.name %>
-</p>
-
-<p>
   <strong>Title:</strong>
   <%= @post.title %>
 </p>
@@ -19,6 +14,11 @@
   <strong>Content:</strong>
   <%= @post.content %>
 </p>
+
+<% @post_attachments.each do |p| %>
+  <div class="image"><%= image_tag p.image.url(:large) %></div>
+  <%= link_to "Edit Attachment", edit_post_attachment_path(p) %>
+<% end %>
 
 <p>
   <strong>Author:</strong>

@@ -8,7 +8,7 @@ class PasswordResetsController < ApplicationController
     if user
       user.send_password_reset 
       @reset_url = edit_password_reset_url(user.password_reset_token)
-      # send email
+      # TODO: send email
       render inline: "Please goto here: <%= link_to @reset_url, @reset_url %>"
     else
       flash[:alert] = "User's email not found"

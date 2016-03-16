@@ -31,6 +31,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @post_attachments = @post.post_attachments.all
     @comment = Comment.new
      
     respond_to do |format|
@@ -42,10 +43,14 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @post_attachment = @post.post_attachments.build
   end
 
   # GET /posts/1/edit
   def edit
+    if @post.post_attachments.empty?
+      @post_attachment = @post.post_attachments.build
+    end
   end
 
   # POST /posts
@@ -56,6 +61,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        params[:post_attachments]['image'].each do |img|
+          @post_attachment = @post.post_attachments.create!(image: img)
+        end
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -70,6 +78,10 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        # Check if it was there
+        params[:post_attachments]['image'].each do |img|
+          @post_attachment = @post.post_attachments.create!(image: img)
+        end
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -97,7 +109,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:name, :title, :content, :category_id)
+      params.require(:post).permit(:title, :content, :category_id, :image)
     end
 
     def authorize_user

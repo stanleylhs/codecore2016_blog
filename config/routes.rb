@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :post_attachments
   match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
   
   get 'password_resets/new'

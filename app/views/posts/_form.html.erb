@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
@@ -27,6 +23,12 @@
     <%= f.label :category_id %>
     <%= f.collection_select(:category_id, Category.order(:name), :id, :name) %>
   </div>
+  <%= f.fields_for :post_attachments do |p| %>
+     <div class="field">
+       <%= p.label :image %><br>
+       <%= p.file_field :image, multiple: true, name: "post_attachments[image][]" %>
+     </div>
+   <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

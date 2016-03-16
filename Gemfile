@@ -34,7 +34,9 @@ gem 'font-awesome-rails'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'delayed_job_active_record'
-gem "delayed_job_web"
+gem 'delayed_job_web'
+
+gem 'carrierwave'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -47,7 +49,8 @@ group :development, :test do
   gem 'byebug'
   gem 'pry-remote'
   gem 'faker'
-  # gem 'ruby-debug'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310024325) do
+ActiveRecord::Schema.define(version: 20160315213126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,8 +59,16 @@ ActiveRecord::Schema.define(version: 20160310024325) do
   add_index "favourites", ["post_id"], name: "index_favourites_on_post_id", using: :btree
   add_index "favourites", ["user_id"], name: "index_favourites_on_user_id", using: :btree
 
+  create_table "post_attachments", force: :cascade do |t|
+    t.integer  "post_id"
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "post_attachments", ["post_id"], name: "index_post_attachments_on_post_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
-    t.string   "name"
     t.string   "title"
     t.text     "content"
     t.datetime "created_at",  null: false
@@ -90,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160310024325) do
   add_foreign_key "comments", "users"
   add_foreign_key "favourites", "posts"
   add_foreign_key "favourites", "users"
+  add_foreign_key "post_attachments", "posts"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
 end
