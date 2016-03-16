@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   resources :post_attachments
   match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
   
-  get 'password_resets/new'
-
   resources :users
   resources :posts do
     resources :comments   , only: [:create, :destroy]
@@ -15,7 +13,7 @@ Rails.application.routes.draw do
     # remove :id reference from helper
     delete :destroy, on: :collection    
   end
-  resources :password_resets
+  resources :password_resets, only: [:new,:create,:edit,:update]
 
   root 'posts#index'
   # The priority is based upon order of creation: first created -> highest priority.

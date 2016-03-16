@@ -4,12 +4,10 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:password_reset][:email])
     if user
       user.send_password_reset 
-      @reset_url = edit_password_reset_url(user.password_reset_token)
-      # TODO: send email
-      render inline: "Please goto here: <%= link_to @reset_url, @reset_url %>"
+      redirect_to root_url, :notice => "Email sent with password reset instructions."
     else
       flash[:alert] = "User's email not found"
       render :new
@@ -23,10 +21,10 @@ class PasswordResetsController < ApplicationController
   def update
     # binding.remote_pry
     if @user.password_reset_sent_at < 2.hours.ago
-      redirect_to new_password_reset_path, :alert => "Password reset has expired."
+      redirect_to new_password_reset_path, alert: "Password reset has expired."
     elsif @user.update(user_params)
       @user.reset_login_attempt_count
-      redirect_to root_url, :notice => "Password has been reset!"
+      redirect_to root_url, notice: "Password has been reset!"
     else
       @token = params[:id]      
       render :edit
@@ -39,6 +37,6 @@ class PasswordResetsController < ApplicationController
   end
 
   def user_params
-      params.require(:user).permit(:password, :password_confirmation)
-    end
+    params.require(:user).permit(:password, :password_confirmation)
+  end
 end

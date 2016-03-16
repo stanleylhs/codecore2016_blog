@@ -1,35 +1,15 @@
-<%= form_for(@post) do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div>
-    <%= f.label :category_id %>
-    <%= f.collection_select(:category_id, Category.order(:name), :id, :name) %>
-  </div>
-  <%= f.fields_for :post_attachments do |p| %>
-     <div class="field">
-       <%= p.label :image %><br>
-       <%= p.file_field :image, multiple: true, name: "post_attachments[image][]" %>
-     </div>
-   <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for @post, html: { class: 'form-horizontal' } do |f| %>
+  <%= f.input :title %>
+  <%= f.input :content %>
+  <%= f.input :category_id, collection: Category.order(:name), label_method: :name, value_method: :id, label: "Category", include_blank: false %>
+  <%# f.collection_select(:category_id, Category.order(:name), :id, :name) %>
+  <%= f.simple_fields_for :post_attachments, @post_attachment do |image_form| %>
+    <%= image_form.file_field :image, multiple: true,
+                   name: "post_attachments[image][]" %>
+    <% end %>
+    <%= f.button :submit %>
 <% end %>
+
+
+
+

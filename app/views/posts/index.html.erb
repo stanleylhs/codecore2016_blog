@@ -1,7 +1,4 @@
-| <% if user_signed_in? %>
-<%= link_to 'New Post', new_post_path %>
-<% end %>
-<h1>Listing Posts</h1>
+<h1>All Posts</h1>
 
 <div id="search_box">
     <%= form_tag(posts_path, :method => "get", class: "navbar-form", id: "search-form") do %>
@@ -16,32 +13,13 @@
 <p id="notice"><%= notice %></p>
 
 <%= paginate @posts %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Title</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.name %></td>
-        <td><%= post.title %></td>
-        <td><%= post.content %></td>
-        <td><%= link_to 'Show', post %></td>
-        <% if can? :manage, @post %>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+      <h2><%= link_to post.title, post %></h2>
+      <p><%= post.body_snippet %></p>
+      <% if can? :manage, @post %>
+        <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-default' %>
+        <%= link_to 'Delete', post, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-
 <br>
 
