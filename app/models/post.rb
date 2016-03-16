@@ -15,7 +15,7 @@
 class Post < ActiveRecord::Base
   # attr_accessor :content, :name, :title
 
-  has_many :post_attachments
+  has_many :post_attachments, dependent: :destroy
   accepts_nested_attributes_for :post_attachments
 
   paginates_per 50
