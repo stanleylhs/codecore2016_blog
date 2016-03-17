@@ -24,6 +24,7 @@ class Post < ActiveRecord::Base
   validates :title, presence: true,
                     uniqueness: true, 
                     length: { :minimum => 7 }
+  validates :content, presence: true
  
   has_many :comments, :dependent => :destroy
   has_many :favourites, dependent: :destroy

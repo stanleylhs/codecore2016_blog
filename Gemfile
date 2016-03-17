@@ -41,6 +41,8 @@ gem 'mini_magick'
 
 gem 'simple_form'
 
+gem 'rails-erd'
+
 gem "twitter-bootstrap-rails"
 
 

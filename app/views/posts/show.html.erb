@@ -26,13 +26,13 @@
 </p>
 
 <div id="post-favourite"><%= render '/favourites/post_favourite' %></div>
+<h2>Comments</h2>
+<div class="comments">
+<%= render @post.comments %>
+</div>
 <div id='comment-form'>
 <h2>Add a comment:</h2>
 <%= render "comments/form" %>
-</div>
-<div class="comments">
-<h2>Comments</h2>
-<%= render @post.comments %>
 </div>
 <%# Where @document = Document.find(params[:id]) and @comment = Comment.new. %>
 <% if can? :manage, @post %>
